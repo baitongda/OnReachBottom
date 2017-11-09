@@ -1,0 +1,68 @@
+<view class="container">
+    <view class="cells">
+        <view class="cell f8" wx:for="{{state}}">
+            <view class="cell__bd">
+                <text style="color:{{item.color}}">{{item.codeNum==0?'付款后可使用':'消费码：'+code}}</text>
+            </view>
+            <view class="cell__ft">
+                <text style="color:#f1312f">{{item.state}}</text>
+            </view>
+        </view>
+        <view class="page_avatar cell f8">
+            <view class="page_avatar_icon">
+                <view><image src="{{thumb}}"></image></view>
+            </view>
+            <view class="page_avatar_inner">
+                <text class="inner_name">{{productname}}</text>
+                <view class="inner_desc">
+                    <view>￥</view><text>{{price}}</text>
+                    <view class="inner_desc_type">×{{amount}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell__bd">
+                <text>金额总计</text>
+            </view>
+            <view class="cell__ft">
+                <text>￥ {{payment}}</text>
+            </view>
+        </view>
+    </view>
+
+    <view class="cells">
+        <view class="cell">
+            <view class="cell__bd">
+                <text>下单时间</text>
+            </view>
+            <view class="cell__ft">
+                <text>{{add_time_format}}</text>
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell__bd">
+                <text>联系电话</text>
+            </view>
+            <view class="cell__ft" bindtap="Dacall">
+                <text style="color:#3383dd;">{{mobile}}</text>
+            </view></view>
+        <view class="cell" style="height:auto;align-items:flex-start;padding:20rpx 0;">
+            <view class="cell__bd">
+                <text>店铺地址</text>
+            </view>
+            <view class="cell__ft" bindtap="openMap">
+                <text style="width:400rpx;display:block;color:#3383dd;">{{shop_address}}</text>
+            </view>
+        </view>
+    </view>
+
+    <view class="footer" wx:if="{{type==0}}">
+        <view class="cancel_btn" bindtap="goBack">取消订单</view>
+        <view class="footer_money">
+            <text>应付金额</text>
+            <text style="color:#f23030">￥</text>
+            <text style="color:#f23030;font-size:16px;">{{payment}}</text>
+        </view>
+        <view class="bought_btn" bindtap="boughtIt">立即付款</view>
+    </view>
+</view>
