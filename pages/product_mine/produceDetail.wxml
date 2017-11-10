@@ -1,4 +1,12 @@
 <view class="container">
+    <view class="annouce"><image src="/image/laba.png" class="annouce_laba"></image>为便于您到店消费，请填写手机号码</view>
+    <view class="cells">
+        <view class="border">
+            <input type="text" placeholder="手机号码" bindinput="userPhoneInput"/>
+            <view class="inputSave" style="background:{{markDisabled?'#c81822':'#bfbfbf'}}" bindtap="keptIt">保存</view>
+        </view>
+    </view>
+
     <view class="cells">
         <view class="cell f8" wx:for="{{state}}">
             <view class="cell__bd">
@@ -63,6 +71,6 @@
             <text style="color:#f23030">￥</text>
             <text style="color:#f23030;font-size:16px;">{{payment}}</text>
         </view>
-        <view class="bought_btn" bindtap="boughtIt">立即付款</view>
+        <view class="bought_btn" bindtap="boughtIt" style="background:{{buyBtn?'#f23030':'#bfbfbf'}}">立即付款</view>
     </view>
 </view>

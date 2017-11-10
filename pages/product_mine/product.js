@@ -12,10 +12,11 @@ Page({
         currentTab: 0,
         shop: [],
         showNowData: false,
-        page: 0,
+        page: 1,
         lastLoadTime: 0,
         Loading: false,
-        pullAllow: true
+        pullAllow: true,
+        type: 0
     },
     onLoad: function() {
         var that = this;
@@ -29,35 +30,7 @@ Page({
         });
     },
     onShow: function() {
-        var that = this
-        const userid = getApp().globalData.userid
-        wx.request({
-            url: 'https://daodian.famishare.me/v1/order/get_my_order',
-            method: 'POST',
-            data: {
-                userid: 50,
-                type: 0
-            },
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: function(res) {
-                console.log(res)
-                if (res.data.errcode == 0) {
-                    if (res.data.data.length == 0) {
-                        that.setData({
-                            shop: res.data.data,
-                            showNowData: true
-                        })
-                    } else {
-                        that.setData({
-                            shop: res.data.data,
-                            showNowData: false
-                        })
-                    }
-                }
-            }
-        })
+        this.requestTypeMes(0)
     },
     /** 
      * 滑动切换tab 
@@ -83,12 +56,15 @@ Page({
             scrollTop: 0
         })
         var type = e.currentTarget.dataset.current
-        console.log(type)
+        this.setData({
+            type: type
+        })
+        console.log('type' + type)
         wx.request({
             url: 'https://daodian.famishare.me/v1/order/get_my_order',
             method: 'POST',
             data: {
-                userid: 50,
+                userid: userid,
                 type: type,
                 page: 1
             },
@@ -96,6 +72,7 @@ Page({
                 'content-type': 'application/json' // 默认值
             },
             success: function(res) {
+                console.log('切换请求出来的')
                 console.log(res)
                 if (res.data.errcode == 0) {
                     if (res.data.data.length != 0) {
@@ -147,7 +124,7 @@ Page({
                 url: 'https://daodian.famishare.me/v1/order/get_my_order',
                 method: 'POST',
                 data: {
-                    userid: 50,
+                    userid: getApp().globalData.userid,
                     type: this.data.type,
                     page: pagenow
                 },
@@ -157,6 +134,7 @@ Page({
                 success: function(res) {
                     if (res.data.errcode == 0) {
                         // 判定获取数据中是否有内容，若没有，则禁止再次调用
+                        console.log('下拉刷新出来了')
                         console.log(res)
                         if (res.data.data.length != 0) {
                             console.log('执行了')
@@ -183,6 +161,37 @@ Page({
 
     },
     upper: function() {
-        this.onShow()
+        this.requestTypeMes(this.data.type)
+    },
+    requestTypeMes: function(type) {
+        var that = this
+        const userid = getApp().globalData.userid
+        wx.request({
+            url: 'https://daodian.famishare.me/v1/order/get_my_order',
+            method: 'POST',
+            data: {
+                userid: userid,
+                type: type
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function(res) {
+                console.log(res)
+                if (res.data.errcode == 0) {
+                    if (res.data.data.length == 0) {
+                        that.setData({
+                            shop: res.data.data,
+                            showNowData: true
+                        })
+                    } else {
+                        that.setData({
+                            shop: res.data.data,
+                            showNowData: false
+                        })
+                    }
+                }
+            }
+        })
     }
 })

@@ -8,6 +8,58 @@ image {
     height: auto;
 }
 
+.annouce {
+    width: 100%;
+    height: 80rpx;
+    font-size: 14px;
+    color: #f1312f;
+    background-color: #fdfdec;
+    line-height: 80rpx;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #d7d7da;
+}
+
+.annouce image {
+    width: 42rpx;
+    height: 42rpx;
+    margin-left: 30rpx;
+    margin-right: 20rpx;
+}
+
+.phoneInput {
+    width: 570rpx;
+    height: 180rpx;
+    float: left;
+    background-color: #fff;
+}
+
+.border {
+    width: 750rpx;
+    height: 90rpx;
+    background: #fff;
+    border-bottom: 1px solid #d2d2d2;
+    border-top: 1px solid #d2d2d2;
+    margin: 20rpx auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.border input {
+    width: 570rpx;
+    padding-left: 30rpx;
+}
+
+.inputSave {
+    width: 180rpx;
+    height: 90rpx;
+    color: #fff;
+    line-height: 90rpx;
+    text-align: center;
+}
+
 .page_avatar {
     width: 100%;
     height: 230rpx;

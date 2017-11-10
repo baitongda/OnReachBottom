@@ -15,7 +15,10 @@ Page({
             color: '#8c8c8c',
             codeNum: 1
         }],
-        state: []
+        state: [],
+        markDisabled: false,
+        buyBtn: false,
+        phoneNumConfirm: 0,
     },
     onLoad: function(e) {
         console.log(e)
@@ -276,5 +279,37 @@ Page({
             name: getApp().globalData.shopname,
             address: getApp().globalData.address
         })
+    },
+    keptIt: function() {
+        var that = this
+        if (this.data.markDisabled) {
+            that.setData({
+                buyBtn: true,
+                phoneNumConfirm: that.data.userphone,
+                markDisabled: false
+            })
+            console.log(getApp().globalData.data)
+            getApp().bindMobile({
+                username: getApp().globalData.data.username,
+                userid: getApp().globalData.data.userid,
+                mobile: that.data.phoneNumConfirm
+            }, (res) => {
+                console.log(res)
+            })
+        }
+    },
+    userPhoneInput: function(e) {
+        this.setData({
+            userphone: e.detail.value
+        })
+        if (this.data.userphone.trim().length == 11) {
+            this.setData({
+                markDisabled: true
+            })
+        } else {
+            this.setData({
+                markDisabled: false
+            })
+        }
     },
 })
