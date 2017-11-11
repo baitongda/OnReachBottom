@@ -1,0 +1,37 @@
+<view class="container">
+    <view class="swiper-box" bindchange="bindChange">  
+        <scroll-view scroll-y="true" style="height:{{winHeight}}px;" bindscrolltolower="{{pullAllow?'lower':''}}" bindscrolltoupper="upper" scroll-top="{{scrollTop}}">  
+            <scroll-view scroll-x="true" class="swiper-tab">  
+                <view wx:for="{{tabData}}" data-class="{{item.classid}}" class="swiper-tab-list {{currentTab==index ? 'on' : ''}}" data-current="{{index}}" bindtap="swichNav">{{item.classname}}</view>    
+            </scroll-view>  
+            <view>
+                <view class="shoppingList" wx:for="{{shopping}}" data-id="{{item.productid}}" hover="true" hover-class="gray_hover" hover-stay-time="100" hover-start-time="50" data-id="{{item.productid}}" data-price="{{item.price}}" bindtap="gotoDetail">
+                    <image src="{{item.thumb}}"></image>
+                    <text class="shoppingList_title">{{item.productname}}</text>
+                    <view class="share_panel"  wx:if="{{item.price!=0}}">
+                        <text class="shoppingList_PriceStart">原价:￥<text>{{item.price}}</text></text>
+                        <view class="share_times">
+                            <text class="share_times_title">分享进度:</text>
+                            <view class="share_times_border">
+                                <view class="share_times_inner" style="width:{{(item.have_shared/item.share_num)*100}}%"></view>
+                            </view>
+                            <text class="share_times_fen">
+                                {{item.have_shared}}/{{item.share_num}}
+                            </text>
+                        </view>
+                    </view>
+                    <view class="shoppingList_PriceEnd"  wx:if="{{item.price!=0}}">分享价:￥
+                        <text class="PriceEndNum">{{item.share_price}}</text>
+                        <text class="SupeValue">超值</text>
+                        <text class="ShareFriend">（分享给<text>{{item.share_num}}</text>个好友）</text>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-loadmore" wx:if="{{Loading}}">
+                <view class="weui-loading"></view>
+                <view class="weui-loadmore__tips">正在加载</view>
+            </view>        
+            <view class="zanwu" wx:if="{{showNowData}}"><text>暂无数据</text></view>
+        </scroll-view>
+    </view>  
+</view>
