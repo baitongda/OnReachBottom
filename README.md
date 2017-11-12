@@ -1,5 +1,6 @@
 #tabbar+下拉刷新
-	在最近的微信小程序开发中，遇到一个比较坑的界面开发，说坑并不是因为它难，而是这其中包括了太多的开发时所要填的坑了，今天准备将这些填完的小坑一个个刨出来仔细啃啃，做一个demo分享一下。
+
+在最近的微信小程序开发中，遇到一个比较坑的界面开发，说坑并不是因为它难，而是这其中包括了太多的开发时所要填的坑了，今天准备将这些填完的小坑一个个刨出来仔细啃啃，做一个demo分享一下。
     
 ##需求分析
 
@@ -8,6 +9,7 @@
 需求很简单，看起来一个个都不是很困难，但其中隐约的藏着许多个小坑洼，需要一个个仔细的来填上。首先第一个需求，position:fixed; 直接实现，不存在任何困难。
 
 ##实现方法
+
 紧接着面对上拉刷新、下拉加载这个功能，老生常谈，主要有两个实现的方式：
 1.scroll-view的上下监听函数，在触顶和触底时分别执行上拉刷新和下拉刷新机制。
 2.微信api自带的onReachBottom 和 onPullDownFresh 两个函数，分别为触底执行和下拉刷新。
@@ -25,61 +27,62 @@
 面临这样的bug，我的第一想法是给他们上个锁。每当函数执行时将锁关上，在函数之行结束之时再将锁打开。这样就可以将函数重复执行的问题解决了。
 
 ·上拉加载的函数·
-            upper: function() {
-                var that = this
-                var timestamp = Date.parse(new Date()) / 1000;
-                var lastTime = this.data.lastLoadTime
-                if (timestamp - lastTime < 5) {
-                    console.log('太快了')
-                } else {
-                    that.setData({ lastLoadTime: timestamp })
-                    if (this.data.pullUpAllow) {
-                        console.log('刷新啦')
-                        that.setData({
-                            pullUpAllow: false
-                        })
-                        wx.showNavigationBarLoading() //在标题栏中显示加载
-                        console.log(that.data.classidnow)
-                        wx.request({
-                            url: '…',//这里放置的是接口的地址
-                            method: 'POST',
-                            data: {
-                                shopid: getApp().globalData.shopid,
-                                classid: that.data.classidnow,
-                                userid: getApp().globalData.userid
-                            },
-                            header: {
-                                'content-type': 'application/json' // 默认值
-                            },
-                            success: function(res) {
-                                console.log(res)
-                                if (res.data.data.length != 0) {
-                                    let shoppingDetail = res.data.data
-                                    that.setData({
-                                        shopping: shoppingDetail,
-                                        showNowData: false
-                                    })
-                                    console.log(that.data.shopping)
-                                } else {
-                                    that.setData({
-                                        shopping: shoppingDetail,
-                                        showNowData: true
-                                    })
-                                }
-                            },
-                            complete: function() {
-                                wx.hideNavigationBarLoading() //完成停止加载
-                                wx.stopPullDownRefresh() //停止下拉刷新
-                                setInterval(() => {
-                                    that.setData({
-                                        pullUpAllow: true
-                                    })
-                                }, 1000)
-                            }
-                        })
+
+    upper: function() {
+        var that = this
+        var timestamp = Date.parse(new Date()) / 1000;
+        var lastTime = this.data.lastLoadTime
+        if (timestamp - lastTime < 5) {
+            console.log('太快了')
+        } else {
+            that.setData({ lastLoadTime: timestamp })
+            if (this.data.pullUpAllow) {
+                console.log('刷新啦')
+                that.setData({
+                    pullUpAllow: false
+                })
+                wx.showNavigationBarLoading() //在标题栏中显示加载
+                console.log(that.data.classidnow)
+                wx.request({
+                    url: '…',//这里放置的是接口的地址
+                    method: 'POST',
+                    data: {
+                        shopid: getApp().globalData.shopid,
+                        classid: that.data.classidnow,
+                        userid: getApp().globalData.userid
+                    },
+                    header: {
+                        'content-type': 'application/json' // 默认值
+                    },
+                    success: function(res) {
+                        console.log(res)
+                        if (res.data.data.length != 0) {
+                            let shoppingDetail = res.data.data
+                            that.setData({
+                                shopping: shoppingDetail,
+                                showNowData: false
+                            })
+                            console.log(that.data.shopping)
+                        } else {
+                            that.setData({
+                                shopping: shoppingDetail,
+                                showNowData: true
+                            })
+                        }
+                    },
+                    complete: function() {
+                        wx.hideNavigationBarLoading() //完成停止加载
+                        wx.stopPullDownRefresh() //停止下拉刷新
+                        setInterval(() => {
+                            that.setData({
+                                pullUpAllow: true
+                            })
+                        }, 1000)
                     }
-                }
+                })
             }
+        }
+    }
 
 
 虽然可以解决下拉刷新触发过多的问题，但因为上拉刷新的硬伤，所以我认为，在能使用onReachBottom的情况下，不要去使用scroll-view来写。因为上拉加载时，用
