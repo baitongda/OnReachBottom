@@ -25,84 +25,6 @@ App({
         }
 
     },
-    registerIt: function() {
-        wx.login({
-            success: function(res) {
-                if (res.code) {
-                    that.setData({
-                        LoginCode: res.code
-                    })
-                    that.register()
-                    console.log(1)
-                } else {
-                    console.log(res.errMsg)
-                }
-            }
-        })
-        wx.getUserInfo({
-            success: function(res) {
-                that.setData({
-                    iv: res.iv,
-                    encryptedData: res.encryptedData,
-                    gender: res.userInfo.gender,
-                    username: res.userInfo.nickName,
-                    city: res.userInfo.city,
-                    avatar: res.userInfo.avatarUrl,
-                })
-                that.register()
-                console.log(2)
-            }
-        })
-        wx.getSystemInfo({
-            success: function(res) {
-                that.setData({
-                    platform: res.platform,
-                    device: res.model,
-                    system: res.system
-                })
-                that.register()
-                console.log(3)
-            }
-        })
-    },
-    register: function() {
-        var that = this
-        const shopid = app.globalData.shopid
-        wx.request({
-            url: 'https://daodian.famishare.me/v1/user/register',
-            method: 'POST',
-            data: {
-                code: that.data.LoginCode,
-                iv: that.data.iv,
-                encryptedData: that.data.encryptedData,
-                gender: that.data.gender,
-                username: that.data.username,
-                city: that.data.city,
-                avatar: that.data.avatar,
-                platform: that.data.platform,
-                device: that.data.device,
-                system: that.data.system,
-                shopid: shopid
-            },
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: function(res) {
-                console.log(res)
-                if (res.data.errcode == 0) {
-                    console.log('注册信息获取成功')
-                    that.setData({
-                        userid: res.data.data.userid
-                    })
-                    console.log('从注册接口中获取的id为' + res.data.data.userid)
-                    wx.setStorageSync('userid', res.data.data.userid)
-                    console.log('从注册接口中注入的id为' + that.data.userid)
-                    getApp().globalData.userid = res.data.data.userid
-                }
-            }
-        })
-
-    },
     loginTest: function() {
         var that = this
         if (!getApp().globalData.userid) {
@@ -187,4 +109,6 @@ App({
         userphone: '',
         shopname: ''
     }
+
+
 })
