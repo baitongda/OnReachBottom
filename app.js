@@ -25,7 +25,6 @@ App({
         }
 
     },
-
     registerIt: function() {
         wx.login({
             success: function(res) {
@@ -183,7 +182,7 @@ App({
     },
     globalData: {
         userid: '',
-        shopid: 2,
+        shopid: 4,
         userscore: 0,
         userphone: '',
         shopname: ''

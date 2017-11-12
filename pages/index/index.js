@@ -82,9 +82,6 @@ Page({
             }
         })
     },
-    /** 
-     * 滑动切换tab 
-     */
     bindChange: function(e) {
         var that = this;
         that.setData({ currentTab: e.detail.current });
@@ -112,6 +109,7 @@ Page({
         console.log(classid)
         wx.request({
             url: 'https://daodian.famishare.me/v1/product/get_product_list',
+
             method: 'POST',
             data: {
                 shopid: shopid,
