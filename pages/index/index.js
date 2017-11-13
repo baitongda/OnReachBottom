@@ -273,5 +273,12 @@ Page({
         } else {
             console.log('不让你动了啦！')
         }
+    },
+    clickBindtap: function(e) {
+        console.log(e)
+    },
+    scrollclickBindtap: function(e) {
+        console.log(e)
     }
+
 })
