@@ -14,7 +14,6 @@
 1.scroll-view的上下监听函数，在触顶和触底时分别执行上拉刷新和下拉刷新机制。
 2.微信api自带的onReachBottom 和 onPullDownFresh 两个函数，分别为触底执行和下拉刷新。
 
-
 先来介绍一下两种方法：
 1.利用scroll-view 来放置列表展示页，将产品列表贴在scroll-view上，利用下滑属性可以将产品展示在其中。在scroll-view触底时， 绑定bindtaplower 这个函数将会被触发，达到“下拉刷新”的效果。
 2.利用page标签自带的onReachBottom 来达到下拉加载，上拉刷新。两个api属于自带的api，而这个的上拉刷新也自带了一个刷新动画。
