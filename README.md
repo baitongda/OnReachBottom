@@ -104,4 +104,4 @@ Scroll-viewl动画提示用户在下拉刷新时，用的是showNavigationBarLoa
 目前仍在不断改进中！
 
 #tips
-promise
+promise + 新方案
