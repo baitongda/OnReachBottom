@@ -102,6 +102,3 @@ Scroll-viewl动画提示用户在下拉刷新时，用的是showNavigationBarLoa
 
 这是最近开发的一个tabbar + 下拉刷新的demo，如果有需要，就到github里来取吧，如果可以的话记得给个小星星哟~
 目前仍在不断改进中！
-
-#tips
-promise + 新方案
