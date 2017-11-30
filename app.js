@@ -6,7 +6,9 @@ App({
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs)
     },
-    globalData: {}
+    globalData: {
+        appid: 1
+    }
 
 
 })
