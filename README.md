@@ -107,4 +107,3 @@ Scroll-viewl动画提示用户在下拉刷新时，用的是showNavigationBarLoa
 tips:现在的状况只是解决了问题，并没有优雅的finish，如果有更好的方案还请劳烦和我说一下~ 我的qq：631797108
 
 
-1
