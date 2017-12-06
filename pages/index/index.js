@@ -229,8 +229,6 @@ Page({
                 Loading: true,
                 pullAllow: false
             })
-
-            console.log('触底执行')
             wx.request({
                 url: 'https://daodian.famishare.me/v1/product/get_product_list',
                 method: 'POST',
@@ -279,6 +277,7 @@ Page({
     },
     scrollclickBindtap: function(e) {
         console.log(e)
-    }
+    },
+
 
 })
